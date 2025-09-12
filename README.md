@@ -14,3 +14,9 @@ This repository is the first step in that journey.
 1. Open the built-in terminal in VS Code.
 2. Run:
    dotnet run
+
+### Normal mode
+```bash
+dotnet run
+# Type: n
+# Then enter a name (e.g., Anna)
