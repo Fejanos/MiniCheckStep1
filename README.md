@@ -77,9 +77,9 @@ Extended object (also supported)
 ---
 
 ### Exit codes
-- 0 : All tests passed
-- 1 : At least one test failed (or no tests found)
-- 2 : Invocation/parsing error (e.g., file not found, invalid JSON)
+- `0` : All tests passed
+- `1` : At least one test failed (or no tests found)
+- `2` : Invocation/parsing error (e.g., file not found, invalid JSON)
 
 ---
 
