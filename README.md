@@ -20,3 +20,13 @@ This repository is the first step in that journey.
 dotnet run
 # Type: n
 # Then enter a name (e.g., Anna)
+
+### Test mode from file
+This project reads test cases from `tests.json` (placed next to `Program.cs`):
+
+```json
+[
+  { "input": "John",      "expected": "Hello, John!" },
+  { "input": "   Bob   ", "expected": "Hello, Bob!"  },
+  { "input": null,        "expected": "Hello, friend!" }
+]
