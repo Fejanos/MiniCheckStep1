@@ -94,4 +94,3 @@ Extended object (also supported)
 - ✅ File-based tests (`tests.json`)
 - ✅ CLI args + compare options + exit codes
 - ✅ Split into multiple files/classes (clean OOP structure)
-- ❌ Support testing other functions (e.g., `Sum`, `IsPrime`) via config
