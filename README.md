@@ -1,7 +1,8 @@
 # MiniCheckStep1
 
 Inspired by **David J. Malan** and Harvard’s **CS50**.  
-As a computer science teacher, I’m building a mini **check50-like** tool to automatically test and give feedback on student code.  
+As a first learning step, this repository focuses on a single testable function: **`Greet(string?)`**.  
+It demonstrates how to write simple, verifiable C# code with automated tests.
 This repository is the very first step in that journey.
 
 ---
