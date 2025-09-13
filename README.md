@@ -94,6 +94,4 @@ Extended object (also supported)
 - ✅ File-based tests (`tests.json`)
 - ✅ CLI args + compare options + exit codes
 - ✅ Split into multiple files/classes (clean OOP structure)
-- ❌ Add unit tests (`xUnit`) for Greeter and CLI parsing
 - ❌ Support testing other functions (e.g., `Sum`, `IsPrime`) via config
-- ❌ HTML/CSV report export
