@@ -1,49 +1,89 @@
 # MiniCheckStep1
 
-This project was inspired by **David J. Malan** and Harvard’s **CS50** course.  
-As a computer science teacher, I decided to start building my own **mini check50-like system** that can automatically test and give feedback on student code.  
-This repository is the first step in that journey.
+Inspired by **David J. Malan** and Harvard’s **CS50**.  
+As a computer science teacher, I’m building a mini **check50-like** tool to automatically test and give feedback on student code.  
+This repository is the very first step in that journey.
+
+---
 
 ## What’s here so far
 - .NET 8 console application
-- Basic user input (reads a name, prints a greeting)
-- Git version control
-- Published on GitHub
+- Testable greeting logic: `Greet(string?)`
+- **File-based tests** via `tests.json`
+- **CLI argument** to run tests without prompts
+- Optional **compare options** (case/whitespace/trim) from JSON or CLI flags
+- Compact **PASS/FAIL** table + **exit codes**
+
+---
 
 ## How to run (VS Code terminal)
-1. Open the built-in terminal in VS Code.
-2. Run:
-   dotnet run
 
+Open the built-in terminal in VS Code (shortcut: `` Ctrl+` ``).
+
+### Normal (interactive) mode
 ```bash
 dotnet run
+# Type: n  → normal greeting
+# Example:
+# Run test mode? (y/n): n
+# Enter your name: John
+# Hello, John!
 ```
 
-### Normal mode
+### Test mode (prompted)
 ```bash
 dotnet run
-# Type: n
-# Then enter a name (e.g., John)
-Run test mode? (y/n): n
-Enter your name: John
-Hello, John!
+# Type: y  → runs tests from tests.json (default path)
 ```
 
-### Test mode from file
-This project reads test cases from `tests.json` (placed next to `Program.cs`):
+### Run tests directly from a file (no prompt)
+Use a space after `--` to pass arguments to your app.
+```bash
+dotnet run -- tests.json
+dotnet run -- tests_alt.json
+```
 
-```json
+### Override compare options via CLI flags
+```bash
+dotnet run -- tests.json --ignore-case --normalize-whitespace --trim-output
+```
+---
+
+### JSON formats
+Simple array (supported)
+```bash
 [
   { "input": "John",      "expected": "Hello, John!" },
   { "input": "   Bob   ", "expected": "Hello, Bob!"  },
   { "input": null,        "expected": "Hello, friend!" }
 ]
 ```
-
-### Run tests by passing a file path (no prompt)
-Use `--` to pass arguments to your app:
-
+Extended object (also supported)
 ```bash
-dotnet run -- tests.json
-dotnet run -- tests_alt.json
+{
+  "compare": {
+    "ignoreCase": true,
+    "normalizeWhitespace": true,
+    "trimOutput": true
+  },
+  "tests": [
+    { "input": "john",    "expected": "hello, john!" },
+    { "input": "  eve  ", "expected": "HELLO, EVE!"  },
+    { "input": "   ",     "expected": "hello, friend!" }
+  ]
+}
 ```
+
+---
+
+### Exit codes
+- 0 : All tests passed
+- 1 : At least one test failed (or no tests found)
+- 2 : Invocation/parsing error (e.g., file not found, invalid JSON)
+
+---
+
+### Common pitfalls
+- ✅ `dotnet run -- tests.json`
+- ❌ `dotnet run --tests.json` (no space → treated like a flag, not a file)
+- Place `tests.json` next to `Program.cs` (or pass a correct path)

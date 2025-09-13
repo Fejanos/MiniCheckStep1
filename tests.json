@@ -1,5 +1,12 @@
-[
-    {"input": "John", "expected": "Hello, John!"},
+{
+  "compare": {
+    "ignoreCase": true,
+    "normalizeWhitespace": true,
+    "trimOutput": true
+  },
+  "tests": [
+        {"input": "John", "expected": "Hello, John!"},
     {"input": "   Bob   ", "expected": "Hello, Bob!"},
     {"input": null, "expected": "Hello, friend!"}
-]
+  ]
+}
