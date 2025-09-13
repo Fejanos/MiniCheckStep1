@@ -87,3 +87,13 @@ Extended object (also supported)
 - ✅ `dotnet run -- tests.json`
 - ❌ `dotnet run --tests.json` (no space → treated like a flag, not a file)
 - Place `tests.json` next to `Program.cs` (or pass a correct path)
+
+### Roadmap
+- ✅ Testable `Greet(string?)`
+- ✅ Test mode (3 PASS/FAIL cases)
+- ✅ File-based tests (`tests.json`)
+- ✅ CLI args + compare options + exit codes
+- ✅ Split into multiple files/classes (clean OOP structure)
+- ❌ Add unit tests (`xUnit`) for Greeter and CLI parsing
+- ❌ Support testing other functions (e.g., `Sum`, `IsPrime`) via config
+- ❌ HTML/CSV report export
