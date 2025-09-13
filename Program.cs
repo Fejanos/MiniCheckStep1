@@ -1,4 +1,7 @@
-﻿// Testable logic
+﻿using System.Text.Json;
+
+
+// Testable logic
 static string Greet(string? input)
 {
     // Trim first (if not null) then check for null/whitespace
@@ -7,16 +10,45 @@ static string Greet(string? input)
     return $"Hello, {safeName}!";
 }
 
-// Tiny test runner with 3 PASS/FAIL cases
-static void RunTests()
+// Read tests from JSON
+static TestCase[] LoadTests(string path = "tests.json")
 {
-    // (input, expected) pairs - note: null is intentional in the last case
-    var tests = new (string? input, string expected)[]
+    try
     {
-        ("John", "Hello, John!"),
-        ("   Bob   ", "Hello, Bob!"),
-        (null, "Hello, friend!")
-    };
+        // 1) Read the file
+        string json = File.ReadAllText(path);
+
+        // 2) JSON -> C# Array (TestCase[])
+        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        TestCase[]? cases = JsonSerializer.Deserialize<TestCase[]>(json, options);
+
+        // 3) If null, then throw an exception
+        if (cases is null)
+        {
+            throw new Exception("No test cases in JSON.");
+        }
+        return cases;
+    }
+    catch (Exception ex)
+    {
+        // Messages and a fallback empty array
+        Console.WriteLine($"[WARN] Could not load {path}: {ex.Message}");
+        return Array.Empty<TestCase>();
+    }
+}
+
+
+// Test runner
+static void RunTestsFromFile()
+{
+    // Default: "tests.json"
+    var tests = LoadTests();
+
+    if (tests.Length == 0)
+    {
+        Console.WriteLine("No tests found. Make sure tests.json exists next to Program.cs.");
+        return;
+    }
 
     int passed = 0;
 
@@ -42,12 +74,17 @@ static void RunTests()
 Console.Write("Run test mode? (y/n): ");
 string? mode = Console.ReadLine();
 
-if (mode?.Trim().ToLower() == "y")
+if (mode?.Trim().ToLowerInvariant() == "y")
 {
-    RunTests();
+    RunTestsFromFile();
     return; // stop after tests
 }
 
 Console.Write("Enter your name: ");
 string? name = Console.ReadLine();
 Console.WriteLine(Greet(name));
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------//
+// Test case for JSON
+public readonly record struct TestCase(string? input, string expected);

@@ -1,0 +1,5 @@
+[
+    {"input": "John", "expected": "Hello, John!"},
+    {"input": "   Bob   ", "expected": "Hello, Bob!"},
+    {"input": null, "expected": "Hello, friend!"}
+]
