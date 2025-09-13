@@ -25,8 +25,8 @@ dotnet run
 # Type: n
 # Then enter a name (e.g., John)
 Run test mode? (y/n): n
-Enter your name: Anna
-Hello, Anna!
+Enter your name: John
+Hello, John!
 ```
 
 ### Test mode from file
