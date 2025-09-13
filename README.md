@@ -15,11 +15,19 @@ This repository is the first step in that journey.
 2. Run:
    dotnet run
 
+```bash
+dotnet run
+```
+
 ### Normal mode
 ```bash
 dotnet run
 # Type: n
-# Then enter a name (e.g., Anna)
+# Then enter a name (e.g., John)
+Run test mode? (y/n): n
+Enter your name: Anna
+Hello, Anna!
+```
 
 ### Test mode from file
 This project reads test cases from `tests.json` (placed next to `Program.cs`):
@@ -30,3 +38,4 @@ This project reads test cases from `tests.json` (placed next to `Program.cs`):
   { "input": "   Bob   ", "expected": "Hello, Bob!"  },
   { "input": null,        "expected": "Hello, friend!" }
 ]
+```
