@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System;
 
 
 // Testable logic
@@ -11,7 +12,7 @@ static string Greet(string? input)
 }
 
 // Read tests from JSON
-static TestCase[] LoadTests(string path = "tests.json")
+static TestCase[] LoadTests(string path)
 {
     try
     {
@@ -19,7 +20,11 @@ static TestCase[] LoadTests(string path = "tests.json")
         string json = File.ReadAllText(path);
 
         // 2) JSON -> C# Array (TestCase[])
-        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
         TestCase[]? cases = JsonSerializer.Deserialize<TestCase[]>(json, options);
 
         // 3) If null, then throw an exception
@@ -39,14 +44,21 @@ static TestCase[] LoadTests(string path = "tests.json")
 
 
 // Test runner
-static void RunTestsFromFile()
+static void RunTestsFromFile(string path)
 {
-    // Default: "tests.json"
-    var tests = LoadTests();
+    // If file does not exists
+    if (!File.Exists(path))
+    {
+        Console.WriteLine($"[ERROR] File not found: {path}");
+        return;
+    }
+
+    // From args path
+    var tests = LoadTests(path);
 
     if (tests.Length == 0)
     {
-        Console.WriteLine("No tests found. Make sure tests.json exists next to Program.cs.");
+        Console.WriteLine($"[INFO] No tests found.");
         return;
     }
 
@@ -70,16 +82,31 @@ static void RunTestsFromFile()
 
 //----------------------------------------------------------------------MAIN----------------------------------------------------------------//
 
-// Ask for test mode: if 'y' run tests, else normal greet
+// args from command line
+// dotnet run -- tests.json
+
+// At least one params.
+if (args.Length > 0)
+{
+    string path = args[0]; // args[0] = "tests.json"
+    Console.WriteLine($"[INFO] Running tests from file: {path}");
+    RunTestsFromFile(path);
+    return;
+}
+
+// No params.
+
+// Ask for test mode: if 'y' run tests
 Console.Write("Run test mode? (y/n): ");
 string? mode = Console.ReadLine();
 
 if (mode?.Trim().ToLowerInvariant() == "y")
 {
-    RunTestsFromFile();
+    RunTestsFromFile("tests.json"); // default json
     return; // stop after tests
 }
 
+// else normal greet
 Console.Write("Enter your name: ");
 string? name = Console.ReadLine();
 Console.WriteLine(Greet(name));
