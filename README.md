@@ -39,3 +39,11 @@ This project reads test cases from `tests.json` (placed next to `Program.cs`):
   { "input": null,        "expected": "Hello, friend!" }
 ]
 ```
+
+### Run tests by passing a file path (no prompt)
+Use `--` to pass arguments to your app:
+
+```bash
+dotnet run -- tests.json
+dotnet run -- tests_alt.json
+```
